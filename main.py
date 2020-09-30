@@ -1,9 +1,11 @@
 from bot import Bot
 from database import Database
-from location_manager import Location_manager
+from weather_manager import Weather_manager
+from threading import Condition
 
+cv = Condition()
 request_archive, location_archive = [], []
-bot = Bot(request_archive, location_archive)
+bot = Bot(request_archive, location_archive, cv)
 db = Database()
-lm = Location_manager(request_archive, location_archive, db)
+lm = Weather_manager(request_archive, location_archive, db, cv)
 lm.message_worker()
