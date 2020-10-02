@@ -10,7 +10,7 @@ atmosphere = u'\U0001F301'
 clearSky = u'\U00002600'
 fewClouds = u'\U000026C5'
 clouds = u'\U00002601'
-hot = u'\U0001F525'            
+hot = u'\U0001F525'
 defaultEmoji = u'\U0001F300'
 
 
