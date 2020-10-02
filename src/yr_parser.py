@@ -11,6 +11,7 @@ clearSky = u'\U00002600'
 fewClouds = u'\U000026C5'
 clouds = u'\U00002601'
 hot = u'\U0001F525'
+star = u'\U0001F320'
 defaultEmoji = u'\U0001F300'
 
 
@@ -39,9 +40,15 @@ def get_weather_description(data):
         return 'Ясно ' + clearSky
     elif 'cloudy' in data:
         return 'Облачно ' + clouds
+    elif 'rain' in data:
+        return 'Дождь ' + rain
+    elif 'snow' in data:
+        return 'Снег ' + snowflake
+    elif 'fair_night' in data:
+        return 'Безоблачно ' + star
     else:
-        return ' '
+        return data
 
 if __name__ == "__main__":
     yp = Yr_parser()
-    print(yp.parse("50", "30"))
+    print(yp.parse("60", "30"))
