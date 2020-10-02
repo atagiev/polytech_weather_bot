@@ -1,5 +1,6 @@
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
-import config, phrases
+import src.phrases as phrases
+import src.config as config
 
 class Bot:
 

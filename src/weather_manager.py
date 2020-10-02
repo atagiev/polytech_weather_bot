@@ -1,6 +1,6 @@
-import phrases
-from yandex_parser import Yandex_parser
-from owm_parser import Owm_parser
+import src.phrases as phrases
+from src.yandex_parser import Yandex_parser
+from src.owm_parser import Owm_parser
 
 class Weather_manager:
 
