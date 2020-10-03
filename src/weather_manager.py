@@ -1,11 +1,12 @@
-import phrases
-from yandex_parser import Yandex_parser
-from owm_parser import Owm_parser
+import src.phrases as phrases
+from src.yandex_parser import Yandex_parser
+from src.owm_parser import Owm_parser
+from src.yr_parser import Yr_parser
 
 class Weather_manager:
 
     def get_weather(self, lat, lon):
-        weather = self.yandex_parser.parse(lat, lon) + self.owm_parser.parse(lat, lon)
+        weather = self.yandex_parser.parse(lat, lon) + self.owm_parser.parse(lat, lon) + self.yr_parser.parse(lat,lon)
         return weather
 
     def message_worker(self):
@@ -31,6 +32,7 @@ class Weather_manager:
         self.db = db
         self.yandex_parser = Yandex_parser()
         self.owm_parser = Owm_parser()
+        self.yr_parser = Yr_parser()
         self.cv = cv
 
 if __name__ == '__main__':

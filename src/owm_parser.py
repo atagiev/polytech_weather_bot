@@ -1,4 +1,5 @@
-import config, phrases
+import src.phrases as phrases
+import src.config as config
 import requests
 
 thunderstorm = u'\U0001F4A8'    # Code: 200's, 900, 901, 902, 905
