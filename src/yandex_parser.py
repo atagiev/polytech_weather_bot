@@ -28,8 +28,8 @@ class Yandex_parser:
             
             r = requests.get(link)
             b = bs4.BeautifulSoup(r.content,"html.parser")
-            temp = b.find(class_="temp__value").getText()
-            feels_like = b.find(class_="term__value").getText()
+            temp = b.find(class_="temp fact__temp fact__temp_size_s").find(class_="temp__value").getText()
+            feels_like = b.find(class_="term term_orient_h fact__feels-like").find(class_="temp__value").getText()
             looks_like = b.find(class_="link__feelings fact__feelings").div.getText()
             emoji = getEmoji(looks_like)
             wind = b.find(class_="wind-speed").getText()
@@ -71,4 +71,4 @@ def getEmoji(looks_like):
 
 if __name__ == "__main__":
     yp = Yandex_parser()
-    print(yp.parse("50", "0"))
+    print(yp.parse("60", "30"))
