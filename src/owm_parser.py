@@ -2,10 +2,12 @@ import src.phrases as phrases
 import src.config as config
 import requests
 
-thunderstorm = u'\U0001F4A8'    # Code: 200's, 900, 901, 902, 905
+thunderstorm = u'\U000026C8'    # Code: 200's, 900, 901, 902, 905
 drizzle = u'\U0001F4A7'         # Code: 300's
-rain = u'\U00002614'            # Code: 500's
+umbrella = u'\U00002602'        # Code: 500's
+rainWithCloud = u'\U0001F327'
 snowflake = u'\U00002744'       # Code: 600's snowflake
+snowWithCloud = u'\U0001F328'
 snowman = u'\U000026C4'         # Code: 600's snowman, 903, 906
 atmosphere = u'\U0001F301'      # Code: 700's foogy
 clearSky = u'\U00002600'        # Code: 800 clear sky
@@ -36,16 +38,18 @@ def getEmoji(weatherID):
         elif str(weatherID)[0] == '3':
             return drizzle
         elif str(weatherID)[0] == '5':
-            return rain
-        elif str(weatherID)[0] == '6' or weatherID==903 or weatherID== 906:
-            return snowflake + ' ' + snowman
+            if weatherID == 500:
+                return rainWithCloud
+            return rainWithCloud + umbrella
+        elif str(weatherID)[0] == '6' or weatherID == 903 or weatherID == 906:
+            return snowWithCloud + snowflake
         elif str(weatherID)[0] == '7':
             return atmosphere
         elif weatherID == 800:
             return clearSky
-        elif weatherID == 801:
+        elif weatherID == 801 or weatherID == 802 or weatherID == 803:
             return fewClouds
-        elif weatherID==802 or weatherID==803 or weatherID==803  or weatherID==804:
+        elif weatherID == 804:
             return clouds
         elif weatherID == 904:
             return hot
@@ -57,4 +61,4 @@ def getEmoji(weatherID):
 
 if __name__ == "__main__":
     op = Owm_parser()
-    print(op.parse("57", "30"))
+    print(op.parse("51", "0"))

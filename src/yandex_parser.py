@@ -1,13 +1,17 @@
 import requests, bs4
 import src.phrases as phrases
 
-thunderstorm = u'\U0001F4A8'
+thunderstorm = u'\U000026C8'
 drizzle = u'\U0001F4A7'
 rain = u'\U00002614'
+rainWithCloud = u'\U0001F327'
+umbrella = u'\U00002602'
 snowflake = u'\U00002744'
 snowman = u'\U000026C4'
+snowWithCloud = u'\U0001F328'
 atmosphere = u'\U0001F301'
 clearSky = u'\U00002600'
+sunWithSmallCloud = u'\U0001F324'
 fewClouds = u'\U000026C5'
 clouds = u'\U00002601'
 hot = u'\U0001F525'
@@ -30,9 +34,9 @@ class Yandex_parser:
             emoji = getEmoji(looks_like)
             wind = b.find(class_="wind-speed").getText()
             rain_next_two_hours = b.find(class_="maps-widget-fact__title").getText()
-            weather = phrases.yandex.format(temp, feels_like, looks_like, emoji, wind, rain_next_two_hours)
+            weather = phrases.yandex.format(temp, feels_like, looks_like, emoji, rain_next_two_hours, wind)
 
-            return weather
+            return weather.capitalize()
         except:
             return phrases.yandex_error
 
@@ -42,11 +46,11 @@ def getEmoji(looks_like):
         if looks_like == 'Гроза':
             return thunderstorm
         elif looks_like == 'Небольшой дождь':
-            return drizzle
+            return rainWithCloud
         elif looks_like == 'Дождь':
-            return rain + rain
+            return rainWithCloud + umbrella
         elif looks_like == 'Снег':
-            return snowflake + ' ' + snowflake
+            return snowWithCloud + ' ' + snowflake
         elif looks_like == 'Небольшой снег':
             return snowflake
         elif looks_like == 'Туман':
@@ -54,7 +58,7 @@ def getEmoji(looks_like):
         elif looks_like == 'Ясно':
             return clearSky
         elif looks_like == 'Малооблачно':
-            return fewClouds
+            return sunWithSmallCloud
         elif looks_like == 'Облачно с прояснениями':
             return fewClouds
         elif looks_like == 'Пасмурно':
@@ -67,4 +71,4 @@ def getEmoji(looks_like):
 
 if __name__ == "__main__":
     yp = Yandex_parser()
-    print(yp.parse("60", "30"))
+    print(yp.parse("50", "0"))
