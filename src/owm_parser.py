@@ -45,7 +45,7 @@ def getEmoji(weatherID):
             return clearSky
         elif weatherID == 801:
             return fewClouds
-        elif weatherID==802 or weatherID==803 or weatherID==803:
+        elif weatherID==802 or weatherID==803 or weatherID==803  or weatherID==804:
             return clouds
         elif weatherID == 904:
             return hot
@@ -57,4 +57,4 @@ def getEmoji(weatherID):
 
 if __name__ == "__main__":
     op = Owm_parser()
-    print(op.parse("60", "30"))
+    print(op.parse("57", "30"))
