@@ -6,7 +6,7 @@ from src.yr_parser import Yr_parser
 class Weather_manager:
 
     def get_weather(self, lat, lon):
-        weather = self.yandex_parser.parse(lat, lon) + self.owm_parser.parse(lat, lon) + self.yr_parser.parse(lat,lon)
+        weather = phrases.before_weather + self.yandex_parser.parse(lat, lon) + self.owm_parser.parse(lat, lon) + self.yr_parser.parse(lat,lon)
         return weather
 
     def message_worker(self):
@@ -37,3 +37,6 @@ class Weather_manager:
 
 if __name__ == '__main__':
     request_archive, location_archive, db = [], [],[]
+    cv = 1
+    weather = Weather_manager(request_archive, location_archive, db, cv)
+    print(weather.get_weather("60", "30"))

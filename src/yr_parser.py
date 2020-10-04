@@ -1,18 +1,7 @@
 import requests, bs4
 import src.phrases as phrases
+import src.emoji_codes as e
 
-thunderstorm = u'\U0001F4A8'
-drizzle = u'\U0001F4A7'
-rain = u'\U00002614'
-snowflake = u'\U00002744'
-snowman = u'\U000026C4'
-atmosphere = u'\U0001F301'
-clearSky = u'\U00002600'
-fewClouds = u'\U000026C5'
-clouds = u'\U00002601'
-hot = u'\U0001F525'
-star = u'\U0001F320'
-defaultEmoji = u'\U0001F300'
 
 
 class Yr_parser:
@@ -25,7 +14,7 @@ class Yr_parser:
 
             r = requests.get(link)
             data = r.json()
-            description = get_weather_description(data['properties']['timeseries'][0]['data']['next_1_hours']['summary']['symbol_code'])
+            description = get_weather_description(data['properties']['timeseries'][0]['data']['next_1_hours']['summary']['symbol_code']).lower()
             weather = phrases.yr.format(data['properties']['timeseries'][0]['data']['instant']['details']['air_temperature'],
                                         description,
                                         data['properties']['timeseries'][0]['data']['next_1_hours']['details']['precipitation_amount'],
@@ -37,17 +26,31 @@ class Yr_parser:
 
 def get_weather_description(data):
     if 'clearsky' in data:
-        return 'Ясно ' + clearSky
+        return 'Ясно ' + e.clearSky
+    elif 'fair_day' in data:
+        return 'Малооблачно ' + e.sunWithSmallCloud
     elif 'cloudy' in data:
-        return 'Облачно ' + clouds
+        if 'partly' in data:
+            return 'Облачно с прояснениями' + e.fewClouds
+        return 'Облачно ' + e.clouds
     elif 'rain' in data:
-        return 'Дождь ' + rain
+        if 'shower' in data:
+            return 'Ливень' + e.rainWithCloud + e.rain + e.drizzle
+        elif 'light' in data:
+            return 'Небольшой дождь ' + e.rainWithCloud
+        elif 'heavy' in data:
+            return 'Сильный дождь ' + e.rainWithCloud + e.rain
+        return 'Дождь ' + e.rainWithCloud + e.umbrella
     elif 'snow' in data:
-        return 'Снег ' + snowflake
+        if 'light' in data:
+            return 'Небольшой снег ' + e.snowflake
+        elif 'heavy' in data:
+            return 'Сильный снег ' + e.snowWithCloud + e.snowWithCloud
+        return 'Снег ' + e.snowflake + e.snowWithCloud
     elif 'fair_night' in data:
-        return 'Безоблачно ' + star
+        return 'Безоблачно ' + e.star + e.quarterMoon
     else:
-        return data
+        return data + e.defaultEmoji
 
 if __name__ == "__main__":
     yp = Yr_parser()
