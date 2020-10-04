@@ -33,10 +33,10 @@ class Yandex_parser:
             looks_like = b.find(class_="link__feelings fact__feelings").div.getText()
             emoji = getEmoji(looks_like)
             wind = b.find(class_="wind-speed").getText()
+            wind = wind.replace(',', '.')
             rain_next_two_hours = b.find(class_="maps-widget-fact__title").getText()
-            weather = phrases.yandex.format(temp, feels_like, looks_like, emoji, rain_next_two_hours, wind)
-
-            return weather.capitalize()
+            weather = phrases.yandex.format(temp, feels_like, looks_like.lower(), emoji, rain_next_two_hours.lower(), wind)
+            return weather
         except:
             return phrases.yandex_error
 

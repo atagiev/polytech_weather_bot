@@ -31,13 +31,13 @@ class Yr_parser:
 
             r = requests.get(link)
             data = r.json()
-            description = get_weather_description(data['properties']['timeseries'][0]['data']['next_1_hours']['summary']['symbol_code'])
+            description = get_weather_description(data['properties']['timeseries'][0]['data']['next_1_hours']['summary']['symbol_code']).lower()
             weather = phrases.yr.format(data['properties']['timeseries'][0]['data']['instant']['details']['air_temperature'],
                                         description,
                                         data['properties']['timeseries'][0]['data']['next_1_hours']['details']['precipitation_amount'],
                                         data['properties']['timeseries'][0]['data']['instant']['details']['wind_speed'])
 
-            return weather.capitalize()
+            return weather
         except:
             return phrases.yr_error
 
