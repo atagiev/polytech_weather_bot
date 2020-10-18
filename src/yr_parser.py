@@ -52,6 +52,8 @@ def get_weather_description(data):
     else:
         return data + e.defaultEmoji
 
+#TODO добавить описание к погоде sleet🌀
+
 if __name__ == "__main__":
     yp = Yr_parser()
     print(yp.parse("60", "30"))
