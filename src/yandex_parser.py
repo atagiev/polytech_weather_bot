@@ -1,6 +1,6 @@
 import requests, bs4
-import phrases
-import emoji_codes as e
+import src.phrases as phrases
+import src.emoji_codes as e
 
 
 class Yandex_parser:
