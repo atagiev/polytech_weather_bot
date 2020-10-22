@@ -11,24 +11,38 @@ class Weather_manager:
 
     def message_worker(self):
         while True:
-            with self.cv:    
-                for req in self.request_archive:
-                    code, lat, lon = self.db.get_loc(req.message.chat_id)
-                    if code == 0:
-                        req.message.reply_text(phrases.no_location)
-                    else:
-                        weather = self.get_weather(lat, lon)
-                        req.message.reply_text(weather)
-                    self.request_archive.remove(req)   
+            with self.cv:
+                for msg in self.message_archive:
+                    state = self.db.get_state(msg[1].message.chat_id)
+                    if msg[0]=="location":
+                        if state == "0" or state =="1":
+                            self.db.update_loc(msg[1].message.chat_id, msg[1].message.location.latitude, msg[1].message.location.longitude)
+                            self.db.update_state(msg[1].message.chat_id,"2")
+                            msg[1].message.reply_text(phrases.home_location)
+                        elif state == "2":
+                            weather = self.get_weather(msg[1].message.location.latitude, msg[1].message.location.longitude)
+                            msg[1].message.reply_text(weather)
+                    elif msg[0]=="set_home_location":
+                        if state =="0" or state =="2":
+                            self.db.update_state(msg[1].message.chat_id,"1")
+                            msg[1].message.reply_text(phrases.send_home_location)
+                        elif state =="1":
+                            msg[1].message.reply_text(phrases.send_home_location)
+                    elif msg[0]=="get_weather":
+                        if state =="0" or state =="1":
+                            msg[1].message.reply_text(phrases.error)
+                        elif state=="2":
+                            lat,lon = self.db.get_loc(msg[1].message.chat_id)
+                            weather = self.get_weather(lat, lon)
+                            msg[1].message.reply_text(weather)
 
-                for loc in self.location_archive:
-                    self.db.update_loc(loc.message.chat_id, loc.message.location.latitude, loc.message.location.longitude)
-                    self.location_archive.remove(loc)  
-                self.cv.wait()      
+                    self.message_archive.remove(msg)
 
-    def __init__(self, request_archive, location_archive, db, cv):
-        self.request_archive = request_archive
-        self.location_archive = location_archive
+
+                self.cv.wait()
+
+    def __init__(self, message_archive, db, cv):
+        self.message_archive = message_archive
         self.db = db
         self.yandex_parser = Yandex_parser()
         self.owm_parser = Owm_parser()
@@ -36,7 +50,6 @@ class Weather_manager:
         self.cv = cv
 
 if __name__ == '__main__':
-    request_archive, location_archive, db = [], [],[]
-    cv = 1
-    weather = Weather_manager(request_archive, location_archive, db, cv)
-    print(weather.get_weather("1", "30"))
+    message_archive, db, cv = [], [], 1
+    weather = Weather_manager(message_archive, db, cv)
+    print(weather.get_weather("60", "30"))
