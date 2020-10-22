@@ -1,7 +1,7 @@
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
-
 import src.phrases as phrases
 import config
+
 
 class Bot:
 
@@ -17,8 +17,8 @@ class Bot:
 
     def hello(self, update, context):
         update.message.reply_text(phrases.hello)
-    
-    def set_home_location(self,update,context):
+
+    def set_home_location(self, update, context):
         self.message_archive.append(("set_home_location", update))
         with self.cv:
             self.cv.notify_all()
