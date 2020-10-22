@@ -3,7 +3,6 @@ import src.phrases as phrases
 import src.emoji_codes as e
 
 
-
 class Yr_parser:
     def __init__(self):
         self.website = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat={}&lon={}"
@@ -31,7 +30,7 @@ def get_weather_description(data):
         return 'Малооблачно ' + e.sunWithSmallCloud
     elif 'cloudy' in data:
         if 'partly' in data:
-            return 'Облачно с прояснениями ' + e.fewClouds
+            return 'Облачно с прояснениями' + e.fewClouds
         return 'Облачно ' + e.clouds
     elif 'rain' in data:
         if 'shower' in data:
@@ -49,12 +48,10 @@ def get_weather_description(data):
         return 'Снег ' + e.snowflake + e.snowWithCloud
     elif 'fair_night' in data:
         return 'Безоблачно ' + e.star + e.quarterMoon
-    elif 'fog' in data:
-        return 'Туман ' + e.atmosphere
-    elif 'sleet' in data:
-        return 'Мокрый снег ' + e.drizzle + e.snowflake
     else:
         return data + e.defaultEmoji
+
+#TODO добавить описание к погоде sleet🌀
 
 if __name__ == "__main__":
     yp = Yr_parser()

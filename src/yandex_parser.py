@@ -3,17 +3,16 @@ import src.phrases as phrases
 import src.emoji_codes as e
 
 
-
 class Yandex_parser:
     def __init__(self):
         self.website = "https://yandex.ru/pogoda/?lat={}&lon={}"
-    
+
     def parse(self, lat, lon):
         try:
             link = self.website.format(lat, lon)
-            
+
             r = requests.get(link)
-            b = bs4.BeautifulSoup(r.content,"html.parser")
+            b = bs4.BeautifulSoup(r.content, "html.parser")
             temp = b.find(class_="temp fact__temp fact__temp_size_s").find(class_="temp__value").getText()
             feels_like = b.find(class_="term term_orient_h fact__feels-like").find(class_="temp__value").getText()
             looks_like = b.find(class_="link__feelings fact__feelings").div.getText()
@@ -21,11 +20,8 @@ class Yandex_parser:
             wind = b.find(class_="wind-speed").getText()
             wind = wind.replace(',', '.')
             rain_next_two_hours = b.find(class_="maps-widget-fact__title").getText()
-            comma_after_rain = ", "
-            if 'картах' in rain_next_two_hours:
-                rain_next_two_hours = ""
-                comma_after_rain = ""
-            weather = phrases.yandex.format(temp, feels_like, looks_like.lower(), emoji, rain_next_two_hours.lower(), comma_after_rain, wind)
+            weather = phrases.yandex.format(temp, feels_like, looks_like.lower(), emoji, rain_next_two_hours.lower(),
+                                            wind)
             return weather
         except:
             return phrases.yandex_error
@@ -54,11 +50,12 @@ def getEmoji(looks_like):
         elif looks_like == 'Пасмурно':
             return e.clouds
         else:
-            return e.defaultEmoji    # Default emoji
+            return e.defaultEmoji  # Default emoji
 
     else:
-        return e.defaultEmoji   # Default emoji
+        return e.defaultEmoji  # Default emoji
+
 
 if __name__ == "__main__":
     yp = Yandex_parser()
-    print(yp.parse("70", "30"))
+    print(yp.parse("60", "30"))
