@@ -39,4 +39,4 @@ if __name__ == '__main__':
     request_archive, location_archive, db = [], [],[]
     cv = 1
     weather = Weather_manager(request_archive, location_archive, db, cv)
-    print(weather.get_weather("60", "30"))
+    print(weather.get_weather("1", "30"))
