@@ -1,6 +1,6 @@
 import requests, bs4
-import src.phrases as phrases
-import src.emoji_codes as e
+import phrases
+import emoji_codes as e
 
 
 class Yr_parser:

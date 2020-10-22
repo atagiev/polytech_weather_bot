@@ -1,7 +1,7 @@
-import src.phrases as phrases
-from src.yandex_parser import Yandex_parser
-from src.owm_parser import Owm_parser
-from src.yr_parser import Yr_parser
+import phrases
+from yandex_parser import Yandex_parser
+from owm_parser import Owm_parser
+from yr_parser import Yr_parser
 
 class Weather_manager:
 
@@ -37,8 +37,6 @@ class Weather_manager:
                             msg[1].message.reply_text(weather)
 
                     self.message_archive.remove(msg)
-
-
                 self.cv.wait()
 
     def __init__(self, message_archive, db, cv):

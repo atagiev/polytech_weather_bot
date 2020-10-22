@@ -1,6 +1,6 @@
-from src.bot import Bot
-from src.database import Database
-from src.weather_manager import Weather_manager
+from bot import Bot
+from database import Database
+from weather_manager import Weather_manager
 from threading import Condition
 
 cv = Condition()

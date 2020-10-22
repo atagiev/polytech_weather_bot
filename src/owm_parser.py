@@ -1,7 +1,7 @@
-import src.phrases as phrases
-import src.config as config
+import phrases
+import config
 import requests
-import src.emoji_codes as e
+import emoji_codes as e
 
 
 class Owm_parser:
