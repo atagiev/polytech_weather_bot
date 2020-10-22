@@ -3,7 +3,6 @@ import phrases
 import emoji_codes as e
 
 
-
 class Yr_parser:
     def __init__(self):
         self.website = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat={}&lon={}"

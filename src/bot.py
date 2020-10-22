@@ -1,5 +1,6 @@
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
-import phrases
+
+import src.phrases as phrases
 import config
 
 class Bot:
@@ -22,7 +23,6 @@ class Bot:
         with self.cv:
             self.cv.notify_all()
 
-
     def __init__(self, message_archive, cv):
         self.message_archive = message_archive
         self.cv = cv
@@ -37,6 +37,7 @@ class Bot:
 
         self.updater.start_polling()
 
+
 if __name__ == '__main__':
-    message_archive =  []
+    message_archive = []
     b = Bot(message_archive, None)
