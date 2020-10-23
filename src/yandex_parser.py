@@ -20,8 +20,12 @@ class Yandex_parser:
             wind = b.find(class_="wind-speed").getText()
             wind = wind.replace(',', '.')
             rain_next_two_hours = b.find(class_="maps-widget-fact__title").getText()
+            comma_after_rain = ", "
+            if 'картах' in rain_next_two_hours:
+                rain_next_two_hours = ""
+                comma_after_rain = ""
             weather = phrases.yandex.format(temp, feels_like, looks_like.lower(), emoji, rain_next_two_hours.lower(),
-                                            wind)
+                                            comma_after_rain, wind)
             return weather
         except:
             return phrases.yandex_error
@@ -33,6 +37,8 @@ def getEmoji(looks_like):
             return e.thunderstorm
         elif looks_like == 'Небольшой дождь':
             return e.rainWithCloud
+        elif looks_like == 'Дождь со снегом':
+            return e.rainWithCloud + e.drizzle + e.snowflake
         elif looks_like == 'Дождь':
             return e.rainWithCloud + e.umbrella
         elif looks_like == 'Снег':

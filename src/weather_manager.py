@@ -52,4 +52,4 @@ class Weather_manager:
 if __name__ == '__main__':
     message_archive, db, cv = [], [], 1
     weather = Weather_manager(message_archive, db, cv)
-    print(weather.get_weather("60", "30"))
+    print(weather.get_weather("72", "30"))
