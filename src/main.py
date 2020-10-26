@@ -1,3 +1,6 @@
+import os, sys
+sys.path.append(os.path.join(sys.path[0], '../'))
+
 from src.bot import Bot
 from src.database import Database
 from src.weather_manager import Weather_manager
