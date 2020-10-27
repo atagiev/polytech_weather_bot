@@ -1,5 +1,5 @@
 import os, sys
-sys.path.append(os.path.join(sys.path[0], '../'))
+sys.path.append(os.path.join(sys.path[0], '../')) # можно удалить, тк прописано в Dockerfile
 
 from src.bot import Bot
 from src.database import Database
