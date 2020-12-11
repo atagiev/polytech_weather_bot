@@ -25,7 +25,12 @@
 
 ### Диаграммы
 * Context Diagram
+
+![Level 1: System Context Diagram](https://drive.google.com/uc?export=view&id=1rDOeYbcIXCNELgYjeg2J2TcpQiCVpuf0)
+
 * Container Diagram
+
+![Level 2: System Container Diagram](https://drive.google.com/uc?export=view&id=1aVp07gGEelcrjd1oBTIqXiqeUVlqlbI7)
 
 ### Кодирование и отладка
 Проект написан на языке программирования Python версии 3.8 с использованием библиотек python-telegram-bot (отвечает за поддержку бота серверами Telegram), beutifulsoup4 и requests (помогают получать данные с сайтов). Сборка проекта производилась с помощью Docker в контейнерах python:3.8-slim.
